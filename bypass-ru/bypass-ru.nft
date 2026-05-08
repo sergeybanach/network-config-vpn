@@ -1,0 +1,37 @@
+#!/usr/sbin/nft -f
+#
+# nftables-таблица для обхода tun0 на IP-адресах из .ru/.рф зон.
+# Сеты заполняет dnsmasq при резолве доменов; пакеты, идущие на эти IP,
+# получают mark 0x1, по которому ip rule отправляет их в основную таблицу.
+
+# Идемпотентность: удалить таблицу, если уже существует
+table inet bypass
+delete table inet bypass
+
+table inet bypass {
+    set bypass_ru_v4 {
+        type ipv4_addr
+        flags interval, timeout
+        timeout 1h
+    }
+
+    set bypass_ru_v6 {
+        type ipv6_addr
+        flags interval, timeout
+        timeout 1h
+    }
+
+    chain mark_out {
+        type route hook output priority mangle; policy accept;
+        ip  daddr @bypass_ru_v4 meta mark set 0x1
+        ip6 daddr @bypass_ru_v6 meta mark set 0x1
+    }
+
+    # Подменяем src-адрес помеченных пакетов на IP интерфейса,
+    # через который их пере-маршрутизировал ip rule fwmark 0x1.
+    # Иначе сокет уходит с src=172.18.0.1 (tun0), и LAN-роутер дропает.
+    chain snat_out {
+        type nat hook postrouting priority srcnat; policy accept;
+        meta mark 0x1 masquerade
+    }
+}
