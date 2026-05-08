@@ -54,6 +54,16 @@ mkdir -p /etc/NetworkManager/dnsmasq.d
 install -m 0644 "$SRC/nm-dnsmasq-bypass-ru.conf" \
     /etc/NetworkManager/dnsmasq.d/bypass-ru.conf
 
+# 5a. Пользовательский список доменов в обход (можно редактировать)
+# Если файл уже существует — не перезаписываем, чтобы не затереть правки.
+if [[ ! -e /etc/NetworkManager/dnsmasq.d/bypass-ru-extra.conf ]]; then
+    echo "==> /etc/NetworkManager/dnsmasq.d/bypass-ru-extra.conf (свежая установка)"
+    install -m 0644 "$SRC/extra-domains.conf" \
+        /etc/NetworkManager/dnsmasq.d/bypass-ru-extra.conf
+else
+    echo "==> /etc/NetworkManager/dnsmasq.d/bypass-ru-extra.conf уже есть, не трогаю"
+fi
+
 # 5b. stubby: DoT к 1.1.1.1 на 127.0.0.1:5353
 echo "==> /etc/stubby/stubby.yml"
 mkdir -p /etc/stubby

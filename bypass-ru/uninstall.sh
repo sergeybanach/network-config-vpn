@@ -35,6 +35,7 @@ systemctl disable --now stubby.service 2>/dev/null || true
 echo "==> Возвращаю NM в обычный режим (без dnsmasq)"
 rm -f /etc/NetworkManager/conf.d/00-bypass-ru-dns.conf
 rm -f /etc/NetworkManager/dnsmasq.d/bypass-ru.conf
+rm -f /etc/NetworkManager/dnsmasq.d/bypass-ru-extra.conf
 
 echo "==> Перезапуск NetworkManager"
 systemctl restart NetworkManager
