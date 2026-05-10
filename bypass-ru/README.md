@@ -160,6 +160,7 @@ Stubby-соединения **не помечаются** и **не имеют d
 | `sysctl-bypass-ru.conf` | `net.ipv4.conf.all.src_valid_mark=1` |
 | `install.sh` | разворачивает всё, делает бэкап в `/var/backups/bypass-ru-<ts>/` |
 | `uninstall.sh` | полный откат |
+| `dns-monitor/` | опциональный GTK-GUI: real-time просмотр DNS-запросов с отдельной вкладкой ошибок (см. `dns-monitor/install.sh`) |
 
 ### После установки в системе
 

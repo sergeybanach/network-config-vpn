@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=DNS Monitor (bypass-ru)
+Comment=Просмотр DNS-запросов в реальном времени
+Exec=/home/banach/scripts/network-config/bypass-ru/dns-monitor/dns-monitor.py
+Icon=network-wired
+Categories=Network;Monitor;
+Terminal=false
+StartupNotify=true

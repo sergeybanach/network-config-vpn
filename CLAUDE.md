@@ -22,7 +22,13 @@
     ├── stubby.yml             # stubby: DoT к 1.1.1.1
     ├── sysctl-bypass-ru.conf  # net.ipv4.conf.all.src_valid_mark=1
     ├── install.sh             # развернуть всё, бэкап в /var/backups/
-    └── uninstall.sh           # полный откат
+    ├── uninstall.sh           # полный откат
+    └── dns-monitor/           # GTK GUI для просмотра DNS-запросов в реальном времени
+        ├── dns-monitor.py     # Python+GTK3, парсит journalctl-поток dnsmasq
+        ├── log-queries.conf   # включает log-queries в NM-managed dnsmasq
+        ├── install.sh         # ставит python3-gi/gir1.2-gtk-3.0 + кладёт log-queries.conf
+        ├── uninstall.sh       # снимает log-queries
+        └── dns-monitor.desktop # ярлык для меню приложений (опционально)
 ```
 
 ### Что куда идёт после `bypass-ru/install.sh`
@@ -88,6 +94,7 @@
 
 ## Журнал изменений
 
+- **2026-05-10** — добавлен модуль `bypass-ru/dns-monitor/`: GTK3-GUI на Python для real-time просмотра DNS-запросов из journal NM-managed dnsmasq, с подсветкой ошибок (NXDOMAIN/SERVFAIL/REFUSED/TIMEOUT) и отдельной вкладкой только для ошибок. Включает `log-queries.conf` для активации логирования в dnsmasq, `install.sh`/`uninstall.sh`, `.desktop`-ярлык. install.sh ставит `python3-gi`/`gir1.2-gtk-3.0`, добавляет пользователя в `systemd-journal`. Обновлён `CLAUDE.md`.
 - **2026-05-10** — добавлен `CLAUDE.md` с описанием структуры и правилами работы (фиксация изменений + коммит-сообщения).
 - **2026-05-09** — добавлен `bypass-ru/README.md` с полной документацией подсистемы (архитектура, схема, диагностика).
 - **2026-05-08** — добавлена поддержка пользовательских доменов (`bypass-ru/extra-domains.conf`, обновлены `install.sh`/`uninstall.sh`); добавлена цепочка `snat_out` с masquerade в `bypass-ru.nft` (без неё пакеты дропались с tun0-src на LAN); добавлен stubby для DoT к 1.1.1.1 (`bypass-ru/stubby.yml`, обновлены `nm-dnsmasq-bypass-ru.conf`, `install.sh`, `uninstall.sh`); создана подсистема `bypass-ru/` для selective-bypass `.ru`/`.рф` доменов мимо VPN.
