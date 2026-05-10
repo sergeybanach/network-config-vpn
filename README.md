@@ -147,20 +147,20 @@ Stubby-соединения **не помечаются** и **не имеют d
 
 ## 4. Файлы и где они лежат
 
-### В репозитории (`/home/banach/scripts/network-config/bypass-ru/`)
+### В репозитории
 
 | Файл | Назначение |
 |---|---|
-| `bypass-ru.nft` | nftables-таблица `inet bypass`: set'ы, `mark_out`, `snat_out` |
-| `bypass-ru.service` | systemd-юнит: грузит nft + добавляет `ip rule fwmark 0x1` |
-| `nm-dns-dnsmasq.conf` | заставляет NetworkManager использовать встроенный dnsmasq |
-| `nm-dnsmasq-bypass-ru.conf` | конфиг dnsmasq: апстрим=stubby, nftset для `.ru`/`.xn--p1ai` |
-| `extra-domains.conf` | пользовательский список не-ru доменов в обход (emias.info и т.п.) |
-| `stubby.yml` | stubby: DoT к 1.1.1.1/1.0.0.1, listen 127.0.0.1:5353 |
-| `sysctl-bypass-ru.conf` | `net.ipv4.conf.all.src_valid_mark=1` |
-| `install.sh` | разворачивает всё, делает бэкап в `/var/backups/bypass-ru-<ts>/` |
-| `uninstall.sh` | полный откат |
-| `dns-monitor/` | опциональный GTK-GUI: real-time просмотр DNS-запросов с отдельной вкладкой ошибок (см. `dns-monitor/install.sh`) |
+| `bypass-ru/bypass-ru.nft` | nftables-таблица `inet bypass`: set'ы, `mark_out`, `snat_out` |
+| `bypass-ru/bypass-ru.service` | systemd-юнит: грузит nft + добавляет `ip rule fwmark 0x1` |
+| `bypass-ru/nm-dns-dnsmasq.conf` | заставляет NetworkManager использовать встроенный dnsmasq |
+| `bypass-ru/nm-dnsmasq-bypass-ru.conf` | конфиг dnsmasq: апстрим=stubby, nftset для `.ru`/`.xn--p1ai` |
+| `bypass-ru/extra-domains.conf` | пользовательский список не-ru доменов в обход (emias.info и т.п.) |
+| `bypass-ru/stubby.yml` | stubby: DoT к 1.1.1.1/1.0.0.1, listen 127.0.0.1:5353 |
+| `bypass-ru/sysctl-bypass-ru.conf` | `net.ipv4.conf.all.src_valid_mark=1` |
+| `bypass-ru/install.sh` | разворачивает всё, делает бэкап в `/var/backups/bypass-ru-<ts>/` |
+| `bypass-ru/uninstall.sh` | полный откат |
+| `bypass-ru/dns-monitor/` | опциональный GTK-GUI: real-time просмотр DNS-запросов с отдельной вкладкой ошибок (см. `bypass-ru/dns-monitor/install.sh`) |
 
 ### После установки в системе
 

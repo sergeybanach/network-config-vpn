@@ -8,12 +8,12 @@
 
 ```
 .
+├── README.md                  # подробное описание подсистемы bypass-ru: архитектура, схемы, диагностика
 ├── network-audit.sh           # сбор полной сетевой конфигурации в отчёт
 ├── report.txt/                # результаты прогонов network-audit.sh (каталоги + tar.gz)
 ├── report2.txt/
 ├── report3.txt/
-└── bypass-ru/                 # selective-bypass подсистема (см. bypass-ru/README.md)
-    ├── README.md              # подробное описание, схемы, диагностика
+└── bypass-ru/                 # selective-bypass подсистема (см. README.md в корне)
     ├── bypass-ru.nft          # nftables: set'ы + mark + masquerade
     ├── bypass-ru.service      # systemd-юнит: nft -f + ip rule fwmark
     ├── nm-dns-dnsmasq.conf    # NM: dns=dnsmasq
@@ -86,14 +86,15 @@
 
 3. Если ничего не правил (только читал/диагностировал) — коммит-сообщение не нужно.
 
-4. Не создавай новые `*.md` файлы без явной просьбы пользователя. Этот файл и `bypass-ru/README.md` — исключения, созданы по запросу.
+4. Не создавай новые `*.md` файлы без явной просьбы пользователя. Этот файл и `README.md` в корне — исключения, созданы по запросу.
 
-5. Перед редактированием кода в `bypass-ru/` сверяйся с `bypass-ru/README.md` — там зафиксирована архитектура и тонкости (priority mangle, masquerade, src_valid_mark и т.д.). Если меняешь поведение — синхронно обнови README.
+5. Перед редактированием кода в `bypass-ru/` сверяйся с `README.md` в корне — там зафиксирована архитектура и тонкости (priority mangle, masquerade, src_valid_mark и т.д.). Если меняешь поведение — синхронно обнови README.
 
 ---
 
 ## Журнал изменений
 
+- **2026-05-10** — `bypass-ru/README.md` перенесён в корень как `README.md`; внутри обновлены пути файлов (добавлен префикс `bypass-ru/`); в CLAUDE.md обновлены дерево и ссылки в правилах.
 - **2026-05-10** — добавлен модуль `bypass-ru/dns-monitor/`: GTK3-GUI на Python для real-time просмотра DNS-запросов из journal NM-managed dnsmasq, с подсветкой ошибок (NXDOMAIN/SERVFAIL/REFUSED/TIMEOUT) и отдельной вкладкой только для ошибок. Включает `log-queries.conf` для активации логирования в dnsmasq, `install.sh`/`uninstall.sh`, `.desktop`-ярлык. install.sh ставит `python3-gi`/`gir1.2-gtk-3.0`, добавляет пользователя в `systemd-journal`. Обновлён `CLAUDE.md`.
 - **2026-05-10** — добавлен `CLAUDE.md` с описанием структуры и правилами работы (фиксация изменений + коммит-сообщения).
 - **2026-05-09** — добавлен `bypass-ru/README.md` с полной документацией подсистемы (архитектура, схема, диагностика).
